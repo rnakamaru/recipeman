@@ -38,7 +38,7 @@ button {
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: #ff9a56;
 }
 
 button:focus,
@@ -49,9 +49,9 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #fff9f5;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #fff5f0;
   }
 }
