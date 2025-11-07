@@ -22,7 +22,7 @@
 
 header {
   padding: 1.5rem 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
   color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }

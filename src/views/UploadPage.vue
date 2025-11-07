@@ -136,8 +136,8 @@ const handleUpload = async () => {
 .file-label {
   display: inline-block;
   padding: 1rem 2rem;
-  background: #f0f0f0;
-  border: 2px dashed #999;
+  background: #fff5f0;
+  border: 2px dashed #ff9a56;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
@@ -147,14 +147,14 @@ const handleUpload = async () => {
 }
 
 .file-label:hover {
-  background: #e8e8e8;
-  border-color: #667eea;
+  background: #ffe8db;
+  border-color: #ff7f3f;
 }
 
 .upload-button {
   width: 100%;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -185,8 +185,8 @@ const handleUpload = async () => {
   width: 50px;
   height: 50px;
   margin: 0 auto 1rem;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #667eea;
+  border: 4px solid #ffe8db;
+  border-top: 4px solid #ff9a56;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -210,12 +210,12 @@ const handleUpload = async () => {
 
 .meal-card {
   padding: 1.5rem;
-  background: #f9f9f9;
+  background: #fff9f5;
   border-radius: 8px;
 }
 
 .meal-card h3 {
-  color: #667eea;
+  color: #ff7f3f;
   font-size: 1.8rem;
   margin-bottom: 1rem;
 }
@@ -258,7 +258,7 @@ const handleUpload = async () => {
   }
   
   .meal-card {
-    background: #f9f9f9;
+    background: #fff9f5;
   }
 }
 </style>
