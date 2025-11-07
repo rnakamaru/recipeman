@@ -1,0 +1,25 @@
+name: Copilot Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  copilot-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    
+    steps:
+      - name: Trigger Copilot Review
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // PRにCopilotレビューをリクエスト
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '@github-copilot review this PR with focus on security, type safety, and Vue 3 best practices'
+            });
