@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { MealData } from '../types/meal'
-import { mockMealData } from '../data/mockData'
+import { fetchMealSuggestion } from '../services/mealService'
 
 const isLoading = ref<boolean>(false)
 const mealData = ref<MealData | null>(null)
@@ -14,7 +14,7 @@ const handleFileChange = (event: Event) => {
   }
 }
 
-const handleUpload = () => {
+const handleUpload = async () => {
   if (!selectedFile.value) {
     alert('画像を選択してください')
     return
@@ -23,11 +23,15 @@ const handleUpload = () => {
   isLoading.value = true
   mealData.value = null
 
-  // 3秒間のモック遅延
-  setTimeout(() => {
-    mealData.value = mockMealData
+  try {
+    // サービスモジュールを使用してデータを取得
+    mealData.value = await fetchMealSuggestion(selectedFile.value)
+  } catch (error) {
+    console.error('献立の取得に失敗しました:', error)
+    alert('献立の取得に失敗しました。もう一度お試しください。')
+  } finally {
     isLoading.value = false
-  }, 3000)
+  }
 }
 </script>
 
