@@ -1,22 +1,39 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { MealData } from '../types/meal'
 import { fetchMealSuggestion } from '../services/mealService'
 
+// 定数定義
+const MESSAGES = {
+  NO_FILE_SELECTED: '画像を選択してください',
+  FETCH_ERROR: '献立の取得に失敗しました。もう一度お試しください。',
+  ANALYZING: '画像を解析中です...',
+  BUTTON_LOADING: '解析中...',
+  BUTTON_IDLE: '献立を提案してもらう',
+  FILE_PLACEHOLDER: '📷 画像を選択',
+} as const
+
+// 状態管理
 const isLoading = ref<boolean>(false)
 const mealData = ref<MealData | null>(null)
 const selectedFile = ref<File | null>(null)
 
+// 算出プロパティ
+const isUploadDisabled = computed(() => !selectedFile.value || isLoading.value)
+const uploadButtonLabel = computed(() => isLoading.value ? MESSAGES.BUTTON_LOADING : MESSAGES.BUTTON_IDLE)
+const fileDisplayName = computed(() => selectedFile.value?.name ?? MESSAGES.FILE_PLACEHOLDER)
+
+// イベントハンドラ
 const handleFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement
-  if (target.files && target.files.length > 0) {
+  if (target.files?.length) {
     selectedFile.value = target.files[0]
   }
 }
 
 const handleUpload = async () => {
   if (!selectedFile.value) {
-    alert('画像を選択してください')
+    alert(MESSAGES.NO_FILE_SELECTED)
     return
   }
 
@@ -24,11 +41,10 @@ const handleUpload = async () => {
   mealData.value = null
 
   try {
-    // サービスモジュールを使用してデータを取得
     mealData.value = await fetchMealSuggestion(selectedFile.value)
   } catch (error) {
     console.error('献立の取得に失敗しました:', error)
-    alert('献立の取得に失敗しました。もう一度お試しください。')
+    alert(MESSAGES.FETCH_ERROR)
   } finally {
     isLoading.value = false
   }
@@ -50,22 +66,21 @@ const handleUpload = async () => {
           class="file-input"
         />
         <label for="file-input" class="file-label">
-          <span v-if="selectedFile">{{ selectedFile.name }}</span>
-          <span v-else>📷 画像を選択</span>
+          {{ fileDisplayName }}
         </label>
         <button 
           @click="handleUpload" 
-          :disabled="!selectedFile || isLoading"
+          :disabled="isUploadDisabled"
           class="upload-button"
         >
-          {{ isLoading ? '解析中...' : '献立を提案してもらう' }}
+          {{ uploadButtonLabel }}
         </button>
       </div>
     </div>
 
     <div v-if="isLoading" class="loading-section">
       <div class="spinner"></div>
-      <p>画像を解析中です...</p>
+      <p>{{ MESSAGES.ANALYZING }}</p>
     </div>
 
     <div v-if="mealData && !isLoading" class="result-section">
