@@ -17,7 +17,7 @@ const fileDisplayName = computed(() => selectedFile.value?.name ?? MESSAGES.FILE
 // イベントハンドラ
 const handleFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement
-  if (target.files?.length) {
+  if (target.files?.length > 0) {
     selectedFile.value = target.files[0]
   }
 }
