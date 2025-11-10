@@ -21,5 +21,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: '@github-copilot review this PR with focus on security, type safety, and Vue 3 best practices'
+              body: '@github-copilot review this PR according to the specified review perspectives. In addition to pointing out areas that need correction, please leave a concise comment for each perspective.'
             });
